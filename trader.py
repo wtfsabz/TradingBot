@@ -56,7 +56,7 @@ symb = "TSLA" # Ticker of stock you want to trade
 pos_held = False
 count = 0
  # buy(1, symb)
-@scheduler.task('interval', id='trading', seconds=10)
+@scheduler.task('interval', id='trading', seconds=60)
 def trading():
     global pos_held, symb, count
     print("")
@@ -89,6 +89,29 @@ def trading():
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/api/buying_power')
+def buyingpower():
+    account = api.get_account()
+    return account.buying_power
+
+@app.route('/api/current_balance')
+def currentbalance():
+    account = api.get_account()
+    return account.portfolio_value
+
+@app.route('/api/gain')
+def calculateGain():
+    account = api.get_account()
+    balance_change = float(account.equity) - float(account.last_equity)
+    print(f'{account.equity} {account.last_equity}')
+    balance_change = balance_change / float(account.equity) * 100
+    return "%" +str(round(balance_change,3))
+
+@app.route('/api/cash')
+def cash():
+    account = api.get_account()
+    return account.cash
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8080,use_reloader=False)

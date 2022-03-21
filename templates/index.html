@@ -10,8 +10,30 @@
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script type="module">
-  Current_Balance.innerText = 120000;
+  function fetchdata(){
+    Cash.innerText = $.ajax({ type: "GET",   
+                        url: "/api/cash",   
+                        async: false
+                      }).responseText;
+    Buying_Power.innerText = $.ajax({ type: "GET",   
+                        url: "/api/buying_power",   
+                        async: false
+                      }).responseText;
+    Current_balance.innerText = $.ajax({ type: "GET",   
+                        url: "/api/current_balance",   
+                        async: false
+                      }).responseText;
+    Gain.innerText = $.ajax({ type: "GET",   
+                        url: "/api/gain",   
+                        async: false
+                      }).responseText;
+  }
+  fetchdata()
+  $(document).ready(function(){
+ setInterval(fetchdata,60000);
+});
 </script>
 </head>
 <body class="w3-light-grey">
@@ -29,7 +51,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
     </div>
     <div class="w3-col s8 w3-bar">
-      <span>Welcome, <strong>Mike</strong></span><br>
+      <span>Welcome, <strong>User</strong></span><br>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
       <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
@@ -63,40 +85,40 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       <div class="w3-container w3-red w3-padding-16">
         <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
         <div class="w3-right">
-          <h3>100000</h3>
+          <h3 id="Cash">100000</h3>
         </div>
         <div class="w3-clear"></div>
-        <h4>Starting Balance</h4>
+        <h4>Cash</h4>
       </div>
     </div>
     <div class="w3-quarter">
       <div class="w3-container w3-blue w3-padding-16">
         <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
         <div class="w3-right">
-          <h3 id ="Current_Balance">99</h3>
+          <h3 id ="Buying_Power">99</h3>
         </div>
         <div class="w3-clear"></div>
-        <h4>Views</h4>
+        <h4>Buying_power</h4>
       </div>
     </div>
     <div class="w3-quarter">
       <div class="w3-container w3-teal w3-padding-16">
         <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
         <div class="w3-right">
-          <h3>23</h3>
+          <h3 id="Current_balance">23</h3>
         </div>
         <div class="w3-clear"></div>
-        <h4>Shares</h4>
+        <h4>Portfolio Value</h4>
       </div>
     </div>
     <div class="w3-quarter">
       <div class="w3-container w3-orange w3-text-white w3-padding-16">
         <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
         <div class="w3-right">
-          <h3>50</h3>
+          <h3 id ="Gain">50</h3>
         </div>
         <div class="w3-clear"></div>
-        <h4>Users</h4>
+        <h4>Daily Percent Change Today</h4>
       </div>
     </div>
   </div>
