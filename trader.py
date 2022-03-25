@@ -117,6 +117,8 @@ def cash():
 def portfolio():
     portfolio = api.list_positions()
     json = {}
+    cash = api.get_account()
+    json['cash'] = cash.cash
     for position in portfolio:
         json[position.symbol] = float(position.current_price) * float(position.qty)
     return jsonify(json)
