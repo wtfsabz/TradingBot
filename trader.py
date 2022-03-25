@@ -1,7 +1,7 @@
 import alpaca_trade_api as tradeapi
 import numpy as np
 import time
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from flask_apscheduler import APScheduler
 '''
     This is using Alpaca paper trading with fake money.
@@ -112,6 +112,14 @@ def calculateGain():
 def cash():
     account = api.get_account()
     return account.cash
+
+@app.route('/api/portfolio')
+def portfolio():
+    portfolio = api.list_positions()
+    json = {}
+    for position in portfolio:
+        json[position.symbol] = float(position.current_price) * float(position.qty)
+    return jsonify(json)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8080,use_reloader=False)
