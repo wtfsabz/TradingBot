@@ -70,7 +70,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             labels: Object.keys(response),
             datasets: [{ 
                 data: Object.values(response),
-                label: "US Dollars",
                 borderColor: "#3e95cd",
                 fill: false
               }
@@ -80,6 +79,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             title: {
               display: true,
               text: 'Portfolio Value(in $USD)'
+            },
+            legend: {
+            display: false
             }
           }
         });
@@ -190,10 +192,10 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-third">
-        <canvas id="pie-chart" width="800" height="450"></canvas>
+        <canvas id="pie-chart" width="800" height="800"></canvas>
       </div>
       <div class="w3-twothird">
-        <canvas id="line-chart" width="1600" height="900"></canvas>
+        <canvas id="line-chart" width="1500" height="900"></canvas>
       </div>
     </div>
   </div>
