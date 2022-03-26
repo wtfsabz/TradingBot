@@ -3,6 +3,7 @@ import numpy as np
 import time
 from flask import Flask, render_template, jsonify
 from flask_apscheduler import APScheduler
+from datetime import datetime
 '''
     This is using Alpaca paper trading with fake money.
     You can setup a free account on Alpaca here: https://alpaca.markets/
@@ -121,6 +122,15 @@ def portfolio():
     json['cash'] = float(cash.cash)
     for position in portfolio:
         json[position.symbol] = float(position.current_price) * float(position.qty)
+    return json
+
+@app.route('/api/history')
+def porthistory():
+    history = api.get_portfolio_history()
+    json = {}
+    for time in history.timestamp:
+        date = datetime.fromtimestamp(time).strftime("%A, %B %d, %Y %I:%M:%S")
+        json[date] = history.equity
     return json
 
 if __name__ == "__main__":
