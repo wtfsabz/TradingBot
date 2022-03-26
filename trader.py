@@ -128,9 +128,11 @@ def portfolio():
 def porthistory():
     history = api.get_portfolio_history()
     json = {}
+    count = 0
     for time in history.timestamp:
-        date = datetime.fromtimestamp(time).strftime("%A, %B %d, %Y %I:%M:%S")
-        json[date] = history.equity
+        date = datetime.fromtimestamp(time).strftime("%B %d, %Y %I:%M:%S")
+        json[date] = history.equity[count]
+        count += 1
     return json
 
 if __name__ == "__main__":
