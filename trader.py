@@ -118,10 +118,10 @@ def portfolio():
     portfolio = api.list_positions()
     json = {}
     cash = api.get_account()
-    json['cash'] = cash.cash
+    json['cash'] = float(cash.cash)
     for position in portfolio:
         json[position.symbol] = float(position.current_price) * float(position.qty)
-    return jsonify(json)
+    return json
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8080,use_reloader=False)

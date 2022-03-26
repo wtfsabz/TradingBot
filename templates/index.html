@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
@@ -29,6 +30,32 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
                         url: "/api/gain",   
                         async: false
                       }).responseText;
+    $.ajax({
+      type: "GET",
+      url: "/api/portfolio",
+      dataType: "json",
+      success: function(response){
+        console.log(Object.keys(response))
+        console.log(Object.values(response))
+        new Chart(document.getElementById("pie-chart"), {
+            type: 'pie',
+            data: {
+              labels: Object.keys(response),
+              datasets: [{
+                label: "US Dollars",
+                backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                data: Object.values(response)
+              }]
+            },
+            options: {
+              title: {
+                display: true,
+                text: 'Portfolio Diversity'
+              }
+            }
+        });
+      }
+    })
   }
   fetchdata()
   $(document).ready(function(){
@@ -134,8 +161,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="w3-panel">
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-third">
-        <h5>Portfolio Diversity</h5>
-        <p>INSERT chart.js **FEATURE**</p>
+        <canvas id="pie-chart" width="800" height="450"></canvas>
       </div>
       <div class="w3-twothird">
         <h5>Portfolio Value</h5>
