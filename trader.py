@@ -1,8 +1,7 @@
-from asyncio import FastChildWatcher
 import alpaca_trade_api as tradeapi
 import numpy as np
 import time
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template
 from flask_apscheduler import APScheduler
 from datetime import datetime, date
 '''
