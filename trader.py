@@ -1,3 +1,4 @@
+from asyncio import FastChildWatcher
 import alpaca_trade_api as tradeapi
 import numpy as np
 import time
@@ -54,7 +55,7 @@ def sell(q, s): # Returns nothing, makes call to sell stock
     )
 
 symb = "TSLA" # Ticker of stock you want to trade
-pos_held = True
+pos_held = False
 count = 0
  # buy(1, symb)
 @scheduler.task('interval', id='trading', seconds=60)
