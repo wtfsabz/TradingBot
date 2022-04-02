@@ -135,5 +135,20 @@ def porthistory():
         count += 1
     return json
 
+@app.route('/api/orders')
+def orders():
+    acts = api.get_activities(page_size=10)
+    activities = []
+    for transaction in acts:
+        order = []
+        order.append(transaction.symbol)
+        order.append(transaction.side)
+        order.append(transaction.qty)
+        order.append(transaction.price)
+        order.append(transaction.transaction_time)
+        order.append(transaction.order_status)
+        activities.append(order)
+    return activities
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8080,use_reloader=False)
