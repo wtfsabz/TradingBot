@@ -87,6 +87,24 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
         });
       }
     })
+    $.ajax({
+      type: 'GET',
+      url: '/api/orders',
+      dataType: 'json',
+      success: function(response){
+        const keys = Object.keys(response)
+        keys.forEach((key,index) => {
+          var tableEntry = `<tr>`
+          console.log(key)
+          for (let i = 0; i < response[key].length; i++) {
+            tableEntry += `<td>${response[key][i]}<td>`;   
+          }
+          tableEntry += '<tr>'
+          var $body = $('#transactions');
+          $body.append(tableEntry)
+        });
+      }
+    })
   }
   fetchdata()
   $(document).ready(function(){
@@ -205,11 +223,19 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <div class="w3-container">
     <h5>Recent Transactions</h5>
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
+      <thead>
       <tr>
-        <td>Stock Name</td>
-        <td>Stock Price at Time</td>
+        <td>Stock</td>
+        <td>Position</td>
+        <td>Quantity</td>
+        <td>Price</td>
         <td>Time of purchase</td>
+        <td>Order Status</td>
       </tr>
+    </thead>
+    <tbody id="transactions">
+
+    </tbody>
     </table><br>
     <button class="w3-button w3-dark-grey"> Purchase Stocks <i class="fa fa-arrow-right"></i></button>
   </div>

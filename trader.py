@@ -1,7 +1,7 @@
 import alpaca_trade_api as tradeapi
 import numpy as np
 import time
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from flask_apscheduler import APScheduler
 from datetime import datetime, date
 '''
@@ -69,7 +69,8 @@ def trading():
     close_list = get_data()
 
     ma = np.mean(close_list)
-    last_price = close_list[4]
+    print(len(close_list))
+    last_price = close_list[-1]
 
     print("Moving Average: " + str(ma))
     print("Last Price: " + str(last_price))
@@ -148,7 +149,7 @@ def orders():
         order.append(transaction.transaction_time)
         order.append(transaction.order_status)
         activities.append(order)
-    return activities
+    return jsonify(activities)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=8080,use_reloader=False)
