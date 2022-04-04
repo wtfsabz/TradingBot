@@ -3,7 +3,8 @@ import numpy as np
 import time
 from flask import Flask, render_template, jsonify
 from flask_apscheduler import APScheduler
-from datetime import datetime, date
+from datetime import datetime, timedelta
+import pytz
 '''
     This is using Alpaca paper trading with fake money.
     You can setup a free account on Alpaca here: https://alpaca.markets/
@@ -24,10 +25,12 @@ scheduler = APScheduler()
 scheduler.init_app(app)
 scheduler.start()
 
+UTC = pytz.timezone('UTC')
 def get_data():
     # Returns a an numpy array of the closing prices of the past 5 minutes
-    todays_date = date.today()
-    bar_iter = api.get_bars_iter(symb, tradeapi.TimeFrame.Minute, todays_date , todays_date,limit = 5)
+    time_now = datetime.now(tz=UTC)
+    time_5_mins = time_now - timedelta(minutes=6)
+    bar_iter = api.get_bars_iter(symb, tradeapi.TimeFrame.Minute, time_5_mins.isoformat(), time_now.isoformat(),limit = 5)
     close_list = []
     for bar in bar_iter:
         close_list.append(bar.c)
