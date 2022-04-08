@@ -99,7 +99,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
           var tableEntry = `<tr>`
           console.log(key)
           for (let i = 0; i < response[key].length; i++) {
-            tableEntry += `<td>${response[key][i]}<td>`;   
+            tableEntry += `<td>${response[key][i]}</td>`;   
           }
           tableEntry += '<tr>'
           $body.append(tableEntry)
@@ -226,12 +226,12 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <table class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white">
       <thead>
       <tr>
-        <td>Stock</td>
-        <td>Position</td>
-        <td>Quantity</td>
-        <td>Price</td>
-        <td>Time of purchase</td>
-        <td>Order Status</td>
+        <th scope="col">Stock</th>
+        <th scope="col">Position</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">Time of purchase</th>
+        <th scope="col">Order Status</th>
       </tr>
     </thead>
     <tbody id="transactions">
