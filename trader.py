@@ -73,7 +73,7 @@ def trading():
     close_list = get_data()
 
     ma = np.mean(close_list)
-    print(len(close_list))
+    # print(len(close_list))
     last_price = close_list[-1]
 
     print("Moving Average: " + str(ma))
@@ -110,7 +110,7 @@ def currentbalance():
 def calculateGain():
     account = api.get_account()
     balance_change = float(account.equity) - float(account.last_equity)
-    print(f'{account.equity} {account.last_equity}')
+    # print(f'{account.equity} {account.last_equity}')
     balance_change = balance_change / float(account.equity) * 100
     return "%" +str(round(balance_change,3))
 
