@@ -75,22 +75,35 @@ def trading():
     ma = np.mean(close_list)
     # print(len(close_list))
     last_price = close_list[-1]
-
+    #ma8 = np.SMA(close_list, 8) # moving average 8
+    #ma20 = np.SMA(close_list, 20) # moving average 20
+    
+    #ma8b4 = np.SMA(close_list, 8) [-1] # moving average 8 one bar before
+    #ma20b4 = np.SMA(close_list, 20) [-1] # moving average 20 one bar before
     print("Moving Average: " + str(ma))
     print("Last Price: " + str(last_price))
 
     # Make buy/sell decision
     # This algorithm buys or sells when the moving average crosses the most recent closing price 
 
-    if ma + 0.2 < last_price and not pos_held: # Buy when moving average is ten cents below the last price
+    if ma + 0.2 < last_price and not pos_held: # Buy when moving average is twenty cents below the last price
         print("Buy")
         buy(1, symb)
         pos_held = True
     
-    elif ma - 0.2 > last_price and pos_held: # Sell when moving average is ten cents above the last price
+    elif ma - 0.2 > last_price and pos_held: # Sell when moving average is twenty cents above the last price
         print("Sell")
         sell(1, symb)
         pos_held = False
+        #an attemp at moving average strategy
+'''elif ma8 > ma20 and ma8b4 < ma20b4: #if ma8 crossed ma20 and is now above = buy
+        print("Buy")
+        buy(1, symb)
+        pos_held = True
+    elif ma8 < ma20 and ma8b4 > ma20b4: #if ma8 crosses again but now is below = sell
+        print("Sell")
+        sell(1, symb)
+        pos_held = False'''
 
 @app.route('/')
 def home():
