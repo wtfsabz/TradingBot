@@ -22,6 +22,7 @@ function fetchdata(){
     success: function(response){
         console.log(Object.keys(response))
         console.log(Object.values(response))
+        pie.innerHTML = "<canvas id='pie-chart' width='800' height='800'></canvas>"
         new Chart(document.getElementById("pie-chart"), {
             type: 'pie',
             data: {
@@ -46,30 +47,31 @@ function fetchdata(){
     url: '/api/history',
     dataType: 'json',
     success : function(response){
-    console.log(response)
-    console.log(Object.keys(response))
-    console.log(Object.values(response))
-    new Chart(document.getElementById("line-chart"), {
-        type: 'line',
-        data: {
-        labels: Object.keys(response),
-        datasets: [{ 
-            data: Object.values(response),
-            borderColor: "#3e95cd",
-            fill: false
+        console.log(response)
+        console.log(Object.keys(response))
+        console.log(Object.values(response))
+        line.innerHTML = "<canvas id='line-chart' width='1500' height='900'></canvas>"
+        new Chart(document.getElementById("line-chart"), {
+            type: 'line',
+            data: {
+            labels: Object.keys(response),
+            datasets: [{ 
+                data: Object.values(response),
+                borderColor: "#3e95cd",
+                fill: false
+                }
+            ]
+            },
+            options: {
+            title: {
+                display: true,
+                text: 'Portfolio Value(in $USD)'
+            },
+            legend: {
+            display: false
             }
-        ]
-        },
-        options: {
-        title: {
-            display: true,
-            text: 'Portfolio Value(in $USD)'
-        },
-        legend: {
-        display: false
-        }
-        }
-    });
+            }
+        });
     }
     })
     var $body = $('#transactions');
